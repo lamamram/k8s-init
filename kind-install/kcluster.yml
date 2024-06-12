@@ -1,0 +1,42 @@
+---
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: stage
+networking:
+  disableDefaultCNI: true
+  podSubnet: 10.32.0.0/16
+  serviceSubnet: 172.16.0.0/16
+  kubeProxyMode: "iptables"
+  apiServerAddress: ${IPV4}
+#- |
+#  kind: ClusterConfiguration
+#  apiServer:
+#      extraArgs:
+#        enable-admission-plugins: AlwaysPullImages,...
+nodes:
+- role: control-plane
+  image: ${KIND_NODE_IMAGE}
+- role: worker
+  image: ${KIND_NODE_IMAGE}
+  extraMounts:
+  - hostPath: data/
+    containerPath: /data
+    readOnly: false
+    selinuxRelabel: false
+    propagation: Bidirectional
+- role: worker
+  image: ${KIND_NODE_IMAGE}
+  extraMounts:
+  - hostPath: data/
+    containerPath: /data
+    readOnly: false
+    selinuxRelabel: false
+    propagation: Bidirectional
+- role: worker
+  image: ${KIND_NODE_IMAGE}
+  extraMounts:
+  - hostPath: data/
+    containerPath: /data
+    readOnly: false
+    selinuxRelabel: false
+    propagation: Bidirectional
