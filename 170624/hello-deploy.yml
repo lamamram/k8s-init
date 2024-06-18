@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kubernetes.io/change-cause: upgrade to 0.8.15 
+    kubernetes.io/change-cause: upgrade to 0.8.9
   labels:
     app: hello
   name: hello
@@ -16,7 +16,7 @@ spec:
         maxSurge: "25%"
         # nb ou % de pods indispos acceptables
         maxUnavailable: "25%"
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: hello
@@ -42,5 +42,5 @@ spec:
           # pour utiliser des règles négatives (pour discriminer un noeud pour un pod)
           # taints & tolerances  
       containers:
-      - image: bob2606/hello-http:0.8.15
+      - image: bob2606/hello-http:0.8.9
         name: hello-http
