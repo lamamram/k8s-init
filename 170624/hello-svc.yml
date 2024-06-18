@@ -13,4 +13,4 @@ spec:
     # ce label  est le lien entre le service et le déploiement
     # référence de .metadata.labels.app: hello de la ressource deploiement hello
     app: hello
-  type: NodePort
+  type: LoadBalancer
