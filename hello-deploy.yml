@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello
+  name: hello
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      affinity:
+        # association pod / node
+        nodeAffinity:
+          # règle association positive (selection) pour les nouveaux pods mais pas les existants
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              # techniques de selecteurs (matchLabels et matchExpressions)
+              - matchExpressions:
+                  - key: disktype
+                    operator: In
+                    # on parle ici des labels disktype qui ont été renseignés par l'admin sur les noeuds
+                    values:
+                      - ssd
+                      - nvme
+          # pour utiliser des règles négatives (pour discriminer un noeud pour un pod)
+          # taints & tolerances  
+      containers:
+      - image: bob2606/hello-http:0.8.9
+        name: hello-http

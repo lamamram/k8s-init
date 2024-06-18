@@ -8,7 +8,7 @@
 
 Vagrant.configure(2) do |config|
   [
-    ["k8s.formation.lan", "6144", "4", "debian/bookworm64"],
+    ["k8s.formation.lan", "8192", "4", "debian/bookworm64"],
   ].each do |vmname,mem,cpu,os|
     config.vm.define "#{vmname}" do |machine|
 
