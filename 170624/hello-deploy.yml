@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kubernetes.io/change-cause: upgrade to 0.8.9
+    kubernetes.io/change-cause: upgrade to 0.8.11
   labels:
     app: hello
   name: hello
@@ -42,5 +42,8 @@ spec:
           # pour utiliser des règles négatives (pour discriminer un noeud pour un pod)
           # taints & tolerances  
       containers:
-      - image: bob2606/hello-http:0.8.9
-        name: hello-http
+        - image: bob2606/hello-http:0.8.11
+          name: hello-http
+          ports:
+            - name: http
+              containerPort: 8080
