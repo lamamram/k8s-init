@@ -31,8 +31,18 @@ spec:
           # "alias" de port pour être utilisé dans les services
           - name: http
             containerPort: 80
+        volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/conf.d
       - image: php:8.2-fpm
         name: php
         ports:
           - name: fpm
             containerPort: 9000
+      volumes:
+        # k8s utilise une convention kebab-case et non snake_case
+        - name: nginx-conf
+          hostPath:
+            path: /data
+            # pas de type => fichier
+            type: Directory
