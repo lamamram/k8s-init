@@ -30,6 +30,8 @@ spec:
           - configMapRef:
               name: wwwphp-user-env
             prefix: NGINX_
+          - secretRef:
+              name: wwwphp-secret-mdp
         ports:
           - name: http
             containerPort: 80
