@@ -17,17 +17,14 @@ spec:
       containers:
       - image: nginx:1.24
         name: www
-        env:
-          - name: USER
-            value: bob
+        envFrom:
+          - configMapRef:
+              name: wwwphp-user-env
         ports:
           - name: http
             containerPort: 80
         volumeMounts:
-          # association du point montage avec le nom du volume
           - name: nginx-conf
-            # REM: on a pas besoin de spécifier 
-            # le nom du fichier sous-jacent du cm dans la destination 
             mountPath: /etc/nginx/conf.d
       - image: php:8.2-fpm
         name: php
@@ -44,11 +41,8 @@ spec:
             server: 192.168.50.4
             path: /
             readOnly: true
-        # charger un configMap dans le déploiement en tant que volume
-        ## nom du volume  != nom du cm
         - name: nginx-conf
           configMap:
-            # nom du cm (cf k get cm)
             name: wwwphp-nginx-cm
             
           

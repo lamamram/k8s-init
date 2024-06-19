@@ -37,6 +37,8 @@ data:
         #    deny  all;
         #}
     }
+  index.php: <?php phpinfo(); ?>
 kind: ConfigMap
 metadata:
+  creationTimestamp: null
   name: wwwphp-nginx-cm
