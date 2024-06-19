@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+# .metadata: définition du déploiement
+metadata:
+  # épithète non unique
+  labels:
+    app: wwwphp
+  # identifiant unique
+  name: wwwphp
+# contenu du déploiement
+spec:
+  # config du replicaSet interne
+  replicas: 2
+  # config permettant d'associer le déploiement avec le pod interne
+  selector:
+    matchLabels:
+      app: wwwphp
+  # config du pod interne
+  template:
+    # .spec.template.metada : définition du pod interne
+    metadata:
+      # permet l'association avec le déploiement
+      labels:
+        app: wwwphp
+    # contenu du pod interne
+    spec:
+      containers:
+      - image: nginx:1.24
+        name: www
+        ports:
+          # "alias" de port pour être utilisé dans les services
+          - name: http
+            containerPort: 80
+      - image: php:8.2-fpm
+        name: php
+        ports:
+          - name: fpm
+            containerPort: 9000
