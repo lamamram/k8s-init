@@ -17,6 +17,15 @@ spec:
       containers:
       - image: nginx:1.24
         name: www
+        env:
+          - name: ADMIN_FIRSTNAME
+            # on va charger la valeur 'bob' référencée dans la clé USER
+            # du cm wwwphp-user-env, 
+            # en tant que valeur de la variable ADMIN_FIRSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: wwwphp-user-env
+                key: USER
         envFrom:
           - configMapRef:
               name: wwwphp-user-env
