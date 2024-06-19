@@ -27,6 +27,9 @@ spec:
       containers:
       - image: nginx:1.24
         name: www
+        env:
+          - name: USER
+            value: bob
         ports:
           # "alias" de port pour être utilisé dans les services
           - name: http
