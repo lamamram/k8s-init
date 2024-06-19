@@ -1,28 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
-# .metadata: définition du déploiement
 metadata:
-  # épithète non unique
   labels:
     app: wwwphp
-  # identifiant unique
   name: wwwphp
-# contenu du déploiement
 spec:
-  # config du replicaSet interne
   replicas: 2
-  # config permettant d'associer le déploiement avec le pod interne
   selector:
     matchLabels:
       app: wwwphp
-  # config du pod interne
   template:
-    # .spec.template.metada : définition du pod interne
     metadata:
-      # permet l'association avec le déploiement
       labels:
         app: wwwphp
-    # contenu du pod interne
     spec:
       containers:
       - image: nginx:1.24
@@ -31,14 +21,14 @@ spec:
           - name: USER
             value: bob
         ports:
-          # "alias" de port pour être utilisé dans les services
           - name: http
             containerPort: 80
         volumeMounts:
-          - name: data
-            # emplacement dans le container
+          # association du point montage avec le nom du volume
+          - name: nginx-conf
+            # REM: on a pas besoin de spécifier 
+            # le nom du fichier sous-jacent du cm dans la destination 
             mountPath: /etc/nginx/conf.d
-            subPath: conf_nginx
       - image: php:8.2-fpm
         name: php
         ports:
@@ -46,14 +36,19 @@ spec:
             containerPort: 9000
         volumeMounts:
           - name: data
-            # emplacement dans le container
             mountPath: /var/www/html
             subPath: siteweb
       volumes:
-        # k8s utilise une convention kebab-case et non snake_case
         - name: data
           nfs:
             server: 192.168.50.4
-            ## correspond à /usr/local/partage
             path: /
             readOnly: true
+        # charger un configMap dans le déploiement en tant que volume
+        ## nom du volume  != nom du cm
+        - name: nginx-conf
+          configMap:
+            # nom du cm (cf k get cm)
+            name: wwwphp-nginx-cm
+            
+          
