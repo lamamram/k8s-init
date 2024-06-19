@@ -3,9 +3,17 @@ kind: Kustomization
 namespace : wwwphp
 commonLabels:
   run: wwwphp
+configMapGenerator:
+  - name: wwwphp-nginx-cm
+    files: 
+      - nginx_conf/default.conf
+  - name: wwwp-user-env
+    envs:
+      - .env
+secretGenerator:
+  - name: wwwphp-secret-mdp
+    literals:
+      - MY_PASSWORD=roottoor
 resources:
   - wwwphp-deploy.yml
   - wwwphp-svc.yml
-  - wwwphp-nginx-cm.yml
-  - wwwphp-secret-mdp.yml
-  - wwwphp-user-env.yml
