@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - image: nginx:1.24
+          name: www
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - name: nfsshare
+              mountPath: /usr/share/nginx/html
+              subPath: siteweb
+      volumes:
+        - name: nfsshare
+          nfs:
+            server: 192.168.50.4
+            path: /
+            readOnly: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: nginx
