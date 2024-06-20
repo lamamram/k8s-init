@@ -24,6 +24,12 @@ spec:
             - name: nfsshare
               mountPath: /usr/share/nginx/html
               subPath: siteweb
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /etc/nginx/nginx.conf
+            initialDelaySeconds: 10
       volumes:
         - name: nfsshare
           nfs:
