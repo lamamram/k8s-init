@@ -7,9 +7,18 @@ namePrefix: base-
 # toutes les ressources k8s ont ce label
 commonLabels:
   app: wwwphp
+configMapGenerator:
+  - name: wwwphp-nginx-cm
+    files:
+      - files/default.conf
+  - name: wwwphp-user-env
+    envs:
+      - files/.env
+secretGenerator:
+  - name: wwwphp-secret-mdp
+    literals:
+      - MY_PASSWORD=roottoor
 resources:
-  - wwwphp-nginx-cm.yml
-  - wwwphp-user-env.yml
-  - wwwphp-secret-mdp.yml
   - wwwphp-deploy.yml
   - wwwphp-svc.yml
+  
