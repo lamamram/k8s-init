@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: hello
+  name: hello
+spec:
+  replicas: 1
+  # serviceName: hello-sts
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      initContainers:
+        - name: inithello
+          image: bash
+          command:
+            - bash
+            - -c
+            - |
+              if [[ $(hostname) =~ -0$ ]]
+              then
+                echo Primaire > /mnt/status
+              else
+                echo Secondaire > /mnt/status
+              fi
+          volumeMounts:
+            - name: mnt
+              mountPath: /mnt
+      containers:
+        - image: bob2606/hello-http:0.8.11 
+          name: hello
+          env:
+            - name: SERVICE
+              value: hello
+          volumeMounts:
+            - name: mnt
+              mountPath: /var/lib/hello-http
+      volumes:
+        - name: mnt
+          emptyDir:

@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../base
 namespace : dev-wwwphp
-## ajoute le préfixe n'écrase le préfixe précédent
+## ajoute le préfixe mais n'écrase pas le préfixe précédent
 namePrefix: dev-
 replicas:
   - name: wwwphp
