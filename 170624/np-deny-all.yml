@@ -3,10 +3,12 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: deny-all
+  ## en filigranne donc deny-all pour les pods ds ce namespace
+  # namespace: default
 spec:
   # ICI, l'objet {} veut dire RIEN
   # pas comme d'habitude dans les autres ressources k8s 
-  # dans lesquelles ce la veur dire "pas encore configuré => config par défaut"
+  # dans lesquelles cela veut dire "pas encore configuré => config par défaut"
   podSelector: {}
   policyTypes:
     - Egress

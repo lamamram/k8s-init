@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: whoami-ingress
+  namespace: stage
+spec:
+  # on cible les pods qui ont le label app=whoami
+  podSelector:
+    # matchExpressions:
+    #   - key: app
+    #     operator: In
+    #     values:
+    #       - whoami
+    #       - something-other
+    matchLabels:
+      app: whoami
+      # OR
+      # run: truc
+  ingress:
+    - from:
+        # selection des éléments qui peuvent enoyer des requêtes 
+        # dans notre pod whoami dans le namespace stage
+        - podSelector:
+            matchLabels:
+              target: whoami
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: default
+  # la règle ne concerne seulement que l'ingress
+  policyTypes:
+    - Ingress
