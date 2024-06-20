@@ -28,7 +28,7 @@ spec:
         - podSelector:
             matchLabels:
               target: whoami
-        - namespaceSelector:
+          namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: default
   # la règle ne concerne seulement que l'ingress
