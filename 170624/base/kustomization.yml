@@ -3,7 +3,7 @@ kind: Kustomization
 # le namespace spécifié dans K recouvre toutes les ressources k8s
 # REM: le namespace doit être préexistant
 namespace : wwwphp
-namePrefix: base-
+# namePrefix: base-
 # toutes les ressources k8s ont ce label
 commonLabels:
   app: wwwphp
