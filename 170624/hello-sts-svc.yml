@@ -6,6 +6,8 @@ metadata:
   name: hello-set
 spec:
   ports:
+  # 1/ il n'y a pas d'IP commune => k get svc
+  # 2/ la clé port: est obligatoire mais inutilisé  
   - port: 80
     protocol: TCP
     targetPort: 8080

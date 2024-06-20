@@ -6,7 +6,8 @@ metadata:
   name: hello
 spec:
   replicas: 3
-  # serviceName: hello-sts
+  # dns local dans les pods
+  serviceName: hello-set
   selector:
     matchLabels:
       app: hello
