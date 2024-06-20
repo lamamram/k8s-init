@@ -24,12 +24,22 @@ spec:
             - name: nfsshare
               mountPath: /usr/share/nginx/html
               subPath: siteweb
+          startupProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8888
+            failureThreshold: 3
+            periodSeconds: 6
           livenessProbe:
             exec:
               command:
                 - cat
                 - /etc/nginx/nginx.conf
-            initialDelaySeconds: 10
+            initialDelaySeconds: 8
       volumes:
         - name: nfsshare
           nfs:
