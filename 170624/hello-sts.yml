@@ -5,7 +5,7 @@ metadata:
     app: hello
   name: hello
 spec:
-  replicas: 1
+  replicas: 3
   # serviceName: hello-sts
   selector:
     matchLabels:
@@ -15,6 +15,11 @@ spec:
       labels:
         app: hello
     spec:
+      # conteneurs auxiliaires
+      ## 1/ s'exécutent avant les ctns principaux, s'arrêtent avant l'execution de ces derniers
+      ## 2/ sont la pour préconfigurer les ctns principaux
+      ## 3/ dans le cas du statefulSet, les != noms d'hôtes bien définis 
+      ##    permettent de différencier les configurations (ex: pod master / pod worker)
       initContainers:
         - name: inithello
           image: bash
@@ -28,18 +33,22 @@ spec:
               else
                 echo Secondaire > /mnt/status
               fi
+          # point de montage de notre dossier vide partagé
           volumeMounts:
             - name: mnt
               mountPath: /mnt
+      # container principal, applicatif
       containers:
         - image: bob2606/hello-http:0.8.11 
           name: hello
           env:
             - name: SERVICE
               value: hello
+          # point de montage de notre dossier vide partagé
           volumeMounts:
             - name: mnt
               mountPath: /var/lib/hello-http
+      # ajout d'un volume de type dossier vide
       volumes:
         - name: mnt
           emptyDir:

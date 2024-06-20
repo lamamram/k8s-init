@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello
+  name: hello-set
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  # ClusterIP de type "headless"
+  clusterIP: None
+  selector:
+    app: hello
