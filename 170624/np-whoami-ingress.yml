@@ -18,13 +18,14 @@ spec:
       # run: truc
   ingress:
     - from:
-        # selection des éléments qui peuvent enoyer des requêtes 
+        ## selection des éléments qui peuvent enoyer des requêtes 
         # dans notre pod whoami dans le namespace stage
-        # on a un élément dans la liste from (une règle avec 2 clauses podSelection et namespaceSelector)
+        
+        ## on a un élément dans la liste from (une règle avec 2 clauses podSelection et namespaceSelector)
         # => ET logique entre les clauses
         
         ## OU 2 règles (deux éléments de la liste from ) avec chaque une clause
-        ## => OU logique entre les règles
+        # => OU logique entre les règles
         - podSelector:
             matchLabels:
               target: whoami

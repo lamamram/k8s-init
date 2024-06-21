@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: busy-egress
+spec:
+  podSelector:
+    matchLabels:
+      run: busy
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: whoami
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: stage
+    ### étant donné que la règle autorise qqch est interdit le complémentaire
+    # on doit toujours autoriser le flux sortant d'un pod vers le serveur DNS
+    # sans lequel aucunne cnx dans le cluster
+    - to:
+      ports:
+        - protocol: UDP
+          port: 53
+  policyTypes:
+    - Egress
