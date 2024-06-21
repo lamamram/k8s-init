@@ -14,9 +14,9 @@ spec:
           namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: stage
-    ### étant donné que la règle autorise qqch est interdit le complémentaire
+    ### étant donné que la règle autorise qqch et interdit le complémentaire,
     # on doit toujours autoriser le flux sortant d'un pod vers le serveur DNS
-    # sans lequel aucunne cnx dans le cluster
+    # sans lequel aucune cnx n'est possible dans le cluster.
     - to:
       ports:
         - protocol: UDP
