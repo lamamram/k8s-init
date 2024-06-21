@@ -5,12 +5,15 @@ metadata:
   namespace: resources
 spec:
   limits:
-  - default:
-      cpu: 400m
-    defaultRequest:
-      cpu: 200m
-    # max:
-    #   cpu: 400m
-    # min:
-    #   cpu: 100m
+    # spécifier les intervalles de seuils pour les pods non pourvus
+    - default:
+        cpu: 400m
+      defaultRequest:
+        cpu: 200m
+      # contrôle les intervalles théoriques de  seuils existants dans chaque pod du ns.
+      max:
+        cpu: 400m
+      min:
+        cpu: 100m
+    # pour Container ou PersistentVolumeClaim (storage)
     type: Container

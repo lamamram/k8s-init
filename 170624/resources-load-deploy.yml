@@ -6,7 +6,7 @@ metadata:
   name: load
   namespace: resources
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: load
@@ -22,7 +22,7 @@ spec:
           - /bin/sh
           - -c
           - while :;do :;done
-        # limitations min (requests) et max (limits) au niveau des conteneurs
+        # # limitations min (requests) et max (limits) au niveau des conteneurs
         resources:
           requests:
             cpu: 100m
