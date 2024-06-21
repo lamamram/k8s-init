@@ -1,0 +1,11 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  # même ch que le /CN=bob, du .csr
+  name: bob
+spec:
+  request: <ici le contenu du bob-csr.b64>
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400
+  usages:
+    - client auth
