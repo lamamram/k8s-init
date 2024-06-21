@@ -9,6 +9,9 @@ spec:
     - host: hello-1.k8s.lan
       http:
         paths:
+          ## pour un path /truc
+          # Prefix => /truc Ok et /truc/ OK
+          # Exact => /truc OK et /truc/ KO
           - pathType: Prefix
             # ressource k8s sur laquelle où acheminer le trafic
             backend:
