@@ -10,7 +10,7 @@ spec:
     defaultRequest:
       cpu: 200m
     # max:
-    #   cpu: 700m
+    #   cpu: 400m
     # min:
     #   cpu: 100m
     type: Container

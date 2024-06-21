@@ -23,8 +23,8 @@ spec:
           - -c
           - while :;do :;done
         # limitations min (requests) et max (limits) au niveau des conteneurs
-        # resources:
-        #   requests:
-        #     cpu: 300m
-        #   limits:
-        #     cpu: 400m
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 250m
