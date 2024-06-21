@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wwwphp
+  name: wwwphp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wwwphp
+  template:
+    metadata:
+      labels:
+        app: wwwphp
+    spec:
+      serviceAccountName: www-sa
+      containers:
+        - image: nginx:1.24
+          name: www
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wwwphp
+  name: wwwphp
+spec:
+  ports:
+    # port: port d'entrée du service
+  - port: 80
+    protocol: TCP
+    # targetPort: port du pod
+    targetPort: http
+  # config. de l'association entre service <-> déploiement
+  selector:
+    app: wwwphp
