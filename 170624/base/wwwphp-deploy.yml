@@ -48,11 +48,16 @@ spec:
             mountPath: /var/www/html
             subPath: siteweb
       volumes:
+        # - name: data
+        #   nfs:
+        #     server: 192.168.50.4
+        #     path: /
+        #     readOnly: true
+        ## REMPLACER le volume précédent 
+        ## si les objets PV et PVC ont été appliqués 
         - name: data
-          nfs:
-            server: 192.168.50.4
-            path: /
-            readOnly: true
+          persistentVolumeClaim:
+            claimName: pvc-nfs
         - name: nginx-conf
           configMap:
             name: wwwphp-nginx-cm

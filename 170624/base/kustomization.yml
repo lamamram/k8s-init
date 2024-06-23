@@ -19,6 +19,8 @@ secretGenerator:
     literals:
       - MY_PASSWORD=roottoor
 resources:
+  - pv-nfs.yml
+  - pvc-nfs.yml
   - wwwphp-deploy.yml
   - wwwphp-svc.yml
   

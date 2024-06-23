@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-client
+provisioner: k8s-sigs.io/v1
+parameters:
+  archiveOnDelete: "false"
